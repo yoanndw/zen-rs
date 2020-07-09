@@ -1,3 +1,5 @@
+pub mod title;
+
 pub enum MenuKind {
     Title,
 }

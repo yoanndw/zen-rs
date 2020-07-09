@@ -1,9 +1,9 @@
 mod cli;
 
-use cli::menu::Menu;
+use cli::menu::{title::TitleMenu, Menu};
 
 struct Zen {
-    curr_menu: dyn Menu,
+    curr_menu: Box<dyn Menu>,
 }
 
 impl Zen {
@@ -13,5 +13,10 @@ impl Zen {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let mut zen = Zen {
+        curr_menu: Box::new(TitleMenu),
+    };
+    //println!("Hello, world!");
+
+    zen.run();
 }
