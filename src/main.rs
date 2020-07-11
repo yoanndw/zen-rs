@@ -7,11 +7,17 @@ struct Zen {
 }
 
 impl Zen {
+    fn clear(&self) {
+        println!("{}", "\n".repeat(20));
+    }
+
     fn change_menu(&mut self, new: MenuKind) {
         self.curr_menu = match new {
             MenuKind::Title => Box::new(TitleMenu),
             MenuKind::Gamemode => Box::new(GamemodeMenu),
         };
+
+        self.clear();
     }
 
     fn run(&mut self) {
