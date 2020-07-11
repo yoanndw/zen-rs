@@ -1,9 +1,11 @@
 use super::*;
+use crate::board::Board;
 use crate::cli::input;
 use crate::data::*;
 
 pub struct GameMenu {
     mode: Gamemode,
+    board: Board,
 }
 
 impl GameMenu {
@@ -13,13 +15,17 @@ impl GameMenu {
             _ => Gamemode::Solo, // TODO: prevent the None with better type management
         };
 
-        Self { mode }
+        Self {
+            mode,
+            board: Board::new(),
+        }
     }
 }
 
 impl Menu for GameMenu {
     fn update(&mut self) -> MenuTrans {
         println!("-------[MODE {:?}]-------", self.mode);
+        println!("{}", self.board);
 
         MenuTrans::Quit
     }
