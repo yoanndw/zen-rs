@@ -284,10 +284,6 @@ impl Board {
 
 impl Display for Board {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
-        // let s = self.data.iter().for_each(|&l| {
-        //     l.iter().for_each(|s| )
-        // })
-
         let s = self
             .data
             .iter()
