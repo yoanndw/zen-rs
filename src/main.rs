@@ -1,6 +1,6 @@
 mod cli;
 
-use cli::menu::{title::TitleMenu, Menu};
+use cli::menu::{gamemode::GamemodeMenu, title::TitleMenu, Menu, MenuKind, MenuTrans};
 
 struct Zen {
     curr_menu: Box<dyn Menu>,
@@ -8,7 +8,17 @@ struct Zen {
 
 impl Zen {
     fn run(&mut self) {
-        self.curr_menu.update();
+        loop {
+            let trans = self.curr_menu.update();
+            match trans {
+                MenuTrans::Change(new) => match new {
+                    MenuKind::Title => self.curr_menu = Box::new(TitleMenu),
+                    MenuKind::Gamemode => self.curr_menu = Box::new(GamemodeMenu),
+                },
+                MenuTrans::None => {}
+                MenuTrans::Quit => break,
+            }
+        }
     }
 }
 
