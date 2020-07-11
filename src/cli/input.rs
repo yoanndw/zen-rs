@@ -1,11 +1,12 @@
 use std::io::{self, Stdin, Write};
 
 pub fn read_str(prompt: &str) -> String {
-    print!("\n> {}", prompt);
+    print!("\n{}\n> ", prompt);
     io::stdout().flush();
 
     let mut s = String::new();
     io::stdin().read_line(&mut s);
+    let s = s.trim().to_owned();
 
     s
 }
