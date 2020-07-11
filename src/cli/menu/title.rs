@@ -1,5 +1,6 @@
 use super::*;
 use crate::cli::input;
+use crate::data::TransData;
 
 pub struct TitleMenu;
 
@@ -12,7 +13,7 @@ impl Menu for TitleMenu {
 
         let command = input::read_int_ranged("Que voulez-vous faire ?", 1, 3);
         match command {
-            1 => MenuTrans::Change(MenuKind::Gamemode),
+            1 => MenuTrans::Change(MenuKind::Gamemode, TransData::None),
             2 => MenuTrans::None,
             _ => MenuTrans::Quit,
         }

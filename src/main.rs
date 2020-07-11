@@ -1,6 +1,10 @@
 mod cli;
+mod data;
 
-use cli::menu::{gamemode::GamemodeMenu, title::TitleMenu, Menu, MenuKind, MenuTrans};
+use cli::menu::{
+    game::GameMenu, gamemode::GamemodeMenu, title::TitleMenu, Menu, MenuKind, MenuTrans,
+};
+use data::TransData;
 
 struct Zen {
     curr_menu: Box<dyn Menu>,
@@ -11,10 +15,11 @@ impl Zen {
         println!("{}", "\n".repeat(20));
     }
 
-    fn change_menu(&mut self, new: MenuKind) {
+    fn change_menu(&mut self, new: MenuKind, data: TransData) {
         self.curr_menu = match new {
             MenuKind::Title => Box::new(TitleMenu),
             MenuKind::Gamemode => Box::new(GamemodeMenu),
+            MenuKind::Game => Box::new(GameMenu::new(data)),
         };
 
         self.clear();
@@ -24,7 +29,7 @@ impl Zen {
         loop {
             let trans = self.curr_menu.update();
             match trans {
-                MenuTrans::Change(new) => self.change_menu(new),
+                MenuTrans::Change(new, data) => self.change_menu(new, data),
                 MenuTrans::None => {}
                 MenuTrans::Quit => break,
             }
