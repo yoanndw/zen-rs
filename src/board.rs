@@ -105,3 +105,13 @@ mod test {
         assert_eq!(format!("{}", Square { pawn: None }), ".".to_owned());
     }
 }
+
+pub struct Board {
+    data: [[Square; 11]; 11],
+}
+
+impl Board {
+    pub fn new() -> Self {
+
+    }
+}
