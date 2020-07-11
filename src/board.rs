@@ -29,7 +29,7 @@ impl Display for Pawn {
             f,
             "{}",
             match self {
-                Pawn::Player(t) => format!("{}", t),
+                Pawn::Player(t) => t.to_string(),
                 Pawn::Zen => "z".to_owned(),
             }
         )
@@ -64,7 +64,7 @@ impl Display for Square {
             f,
             "{}",
             match &self.pawn {
-                Some(p) => format!("{}", p),
+                Some(p) => p.to_string(),
                 None => ".".to_owned(),
             }
         )
@@ -279,5 +279,22 @@ impl Board {
         ];
 
         Self { data }
+    }
+}
+
+impl Display for Board {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        // let s = self.data.iter().for_each(|&l| {
+        //     l.iter().for_each(|s| )
+        // })
+
+        let s = self
+            .data
+            .iter()
+            .map(|l| l.iter().map(|s| s.to_string()).collect::<Vec<_>>().join(""))
+            .collect::<Vec<_>>()
+            .join("\n");
+
+        write!(f, "{}", s)
     }
 }
