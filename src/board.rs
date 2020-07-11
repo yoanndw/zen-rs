@@ -40,6 +40,24 @@ pub struct Square {
     pawn: Option<Pawn>,
 }
 
+impl Square {
+    pub fn without_pawn() -> Self {
+        Self { pawn: None }
+    }
+
+    pub fn with_team(team: Team) -> Self {
+        Self {
+            pawn: Some(Pawn::Player(team)),
+        }
+    }
+
+    pub fn with_zen() -> Self {
+        Self {
+            pawn: Some(Pawn::Zen),
+        }
+    }
+}
+
 impl Display for Square {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         write!(
@@ -111,7 +129,5 @@ pub struct Board {
 }
 
 impl Board {
-    pub fn new() -> Self {
-
-    }
+    pub fn new() -> Self {}
 }
