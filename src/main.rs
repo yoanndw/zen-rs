@@ -7,14 +7,18 @@ struct Zen {
 }
 
 impl Zen {
+    fn change_menu(&mut self, new: MenuKind) {
+        self.curr_menu = match new {
+            MenuKind::Title => Box::new(TitleMenu),
+            MenuKind::Gamemode => Box::new(GamemodeMenu),
+        };
+    }
+
     fn run(&mut self) {
         loop {
             let trans = self.curr_menu.update();
             match trans {
-                MenuTrans::Change(new) => match new {
-                    MenuKind::Title => self.curr_menu = Box::new(TitleMenu),
-                    MenuKind::Gamemode => self.curr_menu = Box::new(GamemodeMenu),
-                },
+                MenuTrans::Change(new) => self.change_menu(new),
                 MenuTrans::None => {}
                 MenuTrans::Quit => break,
             }
